@@ -14,8 +14,8 @@ export const mdastToFlat: MdastToFlat = (mdast) => {
   };
 
   const traverse = (token: IRoot | TAnyToken): number => {
-    const index = nodes.length;
-    const node = {...token} as TNode;
+    const idx = nodes.length;
+    const node = {...token, idx} as TNode;
     nodes.push(node);
 
     if (token.children) {
@@ -31,16 +31,16 @@ export const mdastToFlat: MdastToFlat = (mdast) => {
 
     switch (node.type) {
       case 'heading':
-        contents.push(index);
-        return index;
+        contents.push(idx);
+        return idx;
       case 'definition':
-        definitions[node.identifier] = index;
+        definitions[node.identifier] = idx;
         return -1;
       case 'footnoteDefinition':
-        footnotes[node.identifier] = index;
+        footnotes[node.identifier] = idx;
         return -1;
       default:
-        return index;
+        return idx;
     }
   };
 

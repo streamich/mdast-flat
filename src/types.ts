@@ -8,7 +8,7 @@ export interface FlatFootnotes {
   [id: string]: number;
 }
 
-export type TNode = (IRoot | TAnyToken) & {children?: number[]};
+export type TNode = (IRoot | TAnyToken) & {idx: number; children?: number[]};
 
 export interface Flat {
   nodes: TNode[];

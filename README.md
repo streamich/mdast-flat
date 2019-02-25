@@ -12,9 +12,12 @@ array, which contains all nodes.
 
 ```idl
 interface FlatParent <: Parent {
+  idx: number
   children: [number]
 }
 ```
+
+`idx` is index of the current node, `children` contains array of children indices.
 
 Full document schema:
 
@@ -51,6 +54,7 @@ const mdast2 = flatToMdast(flat);
 
 - `mdastToFlat(mdast)` &mdash; converts MDAST to MDAST-Flat.
 - `flatToMdast(flat)` &mdash; converts MDAST-Flat to MDAST.
+- `replace(flat1, idx, flat2)` &mdash; replaces node `idx` in `flat1` by `flat2`.
 
 
 ## Example
@@ -106,6 +110,80 @@ definitions:
   click: 4
 footnotes: {}
 ```
+
+### Replacing node with document
+
+You can use `replace()` function to insert a Markdown document inside another Markdown
+document instead of some specified node.
+
+Consider you have a Markdown document.
+
+    1
+
+    replace me
+
+And another document.
+
+    2
+
+Let's say you have parsed both documents into `flat1` and `flat2` MDAST-Flat objects, respectively.
+Now you want to insert the second document inside the first document in place of `replace me`
+paragraph (which has `idx` of `3` in `flat1`);
+
+```js
+const merged = replace(flat1, 3, flat2);
+```
+
+The result is MDAST-Flat `merged` object, which merges all nodes using new `portal` node. It also
+merges `contents`, `definitions` and `footnotes`, if there are any.
+
+```yml
+nodes:
+- type: root
+  children:
+  - 1
+  - 3
+  idx: 0
+- type: paragraph
+  children:
+  - 2
+  idx: 1
+- type: text
+  value: '1'
+  idx: 2
+- type: portal
+  idx: 3
+  original:
+    type: paragraph
+    children:
+    - 4
+    idx: 3
+  children:
+  - 5
+- type: text
+  value: replace me
+  idx: 4
+- type: root
+  children:
+  - 6
+  idx: 5
+- type: paragraph
+  children:
+  - 7
+  idx: 6
+- type: text
+  value: '2'
+  idx: 7
+contents: []
+definitions: {}
+footnotes: {}
+```
+
+Resulting Markdown equivalent is:
+
+    1
+
+    2
 
 
 ## License
