@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es2018",
+    "target": "es5",
     "module": "commonjs",
     "moduleResolution": "Node",
     "removeComments": true,
@@ -14,7 +14,6 @@
     "pretty": true,
     "sourceMap": false,
     "strict": true,
-    "jsx": "react",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "noEmitHelpers": true,

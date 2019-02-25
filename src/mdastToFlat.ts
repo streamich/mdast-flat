@@ -1,0 +1,52 @@
+import {MdastToFlat, TNode, FlatDefinitions, FlatFootnotes} from './types';
+import {IRoot, TAnyToken} from 'md-mdast/lib/types';
+
+export const mdastToFlat: MdastToFlat = (mdast) => {
+  const nodes: TNode[] = [];
+  const contents: number[] = [];
+  const definitions: FlatDefinitions = {};
+  const footnotes: FlatFootnotes = {};
+  const doc = {
+    nodes,
+    contents,
+    definitions,
+    footnotes,
+  };
+
+  const traverse = (token: IRoot | TAnyToken): number => {
+    const index = nodes.length;
+    const node = {...token} as TNode;
+    nodes.push(node);
+
+    if (token.children) {
+      if (token.children instanceof Array) {
+        node.children = (token.children as any).map(traverse).filter((i: number) => i > -1);
+      } else {
+        const childIndex = traverse(token.children);
+        if (childIndex > -1) {
+          node.children = [childIndex] as any;
+        }
+      }
+    }
+
+    switch (node.type) {
+      case 'heading':
+        contents.push(index);
+        return index;
+      case 'definition':
+        definitions[node.identifier] = index;
+        return -1;
+      case 'footnoteDefinition':
+        footnotes[node.identifier] = index;
+        return -1;
+      default:
+        return index;
+    }
+  };
+
+  if (mdast) {
+    traverse(mdast);
+  }
+
+  return doc;
+};

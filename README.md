@@ -7,7 +7,7 @@
 - All footnotes are available in `footnotes` map.
 
 Main difference from MDAST is that `Parent` node `children` property is an
-array of numbers (instead of array of nodes). Numbers are indices to `node`
+array of numbers (instead of array of nodes). Numbers are indices into `nodes`
 array, which contain all nodes.
 
 ```idl
@@ -19,10 +19,8 @@ interface FlatParent <: Parent {
 Full document schema:
 
 ```idl
-type Node = Root | FlatParent | Literal
-
 interface MdastFlat {
-  nodes: [Node]
+  nodes: [Root | FlatParent | Literal]
   contents: [Heading]
   definitions: {
     [identifier]: Definition
