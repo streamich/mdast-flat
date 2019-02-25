@@ -8,7 +8,7 @@
 
 Main difference from MDAST is that `Parent` node `children` property is an
 array of numbers (instead of array of nodes). Numbers are indices into `nodes`
-array, which contain all nodes.
+array, which contains all nodes.
 
 ```idl
 interface FlatParent <: Parent {
