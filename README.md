@@ -126,7 +126,7 @@ And another document.
 
     2
 
-Lets say you have parsed both documents into `flat1` and `flat2` MDAST-Flat object, respectively.
+Let's say you have parsed both documents into `flat1` and `flat2` MDAST-Flat objects, respectively.
 Now you want to insert the second document inside the first document in place of `replace me`
 paragraph (which has `idx` of `3` in `flat1`);
 
@@ -178,6 +178,13 @@ contents: []
 definitions: {}
 footnotes: {}
 ```
+
+Resulting Markdown equivalent is:
+
+    1
+
+    2
+
 
 ## License
 
