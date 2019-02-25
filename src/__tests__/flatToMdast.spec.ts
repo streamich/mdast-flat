@@ -10,8 +10,8 @@ describe('structure', () => {
       nodes: [
         {
           type: 'root',
-        }
-      ]
+        },
+      ],
     };
     const mdast = flatToMdast(flat as any);
 
@@ -249,7 +249,7 @@ describe('structure', () => {
               children: [
                 {
                   type: 'text',
-                  value: 'world!'
+                  value: 'world!',
                 },
               ],
             },

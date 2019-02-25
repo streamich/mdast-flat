@@ -12,12 +12,12 @@ export const flatToMdast: FlatToMdast = (flat: Flat) => {
   if (!mdast.children) mdast.children = [];
 
   if (flat.definitions instanceof Object) {
-    Object.values(flat.definitions).forEach(index => {
+    Object.values(flat.definitions).forEach((index) => {
       mdast.children.push(traverse(index) as TBlockToken);
     });
   }
   if (flat.footnotes instanceof Object) {
-    Object.values(flat.footnotes).forEach(index => {
+    Object.values(flat.footnotes).forEach((index) => {
       mdast.children.push(traverse(index) as TBlockToken);
     });
   }
