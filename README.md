@@ -12,9 +12,12 @@ array, which contain all nodes.
 
 ```idl
 interface FlatParent <: Parent {
+  idx: number
   children: [number]
 }
 ```
+
+`idx` is index of the current node, `children` contains array of children indices.
 
 Full document schema:
 

@@ -248,7 +248,7 @@ describe('structure', () => {
     });
   });
 
-  it.only('all elements twice or more', () => {
+  it('all elements twice or more', () => {
     const parser = create();
     const md = fs.readFileSync(__dirname + '/md/all-elements-twice.md', 'utf8');
     const mdast = parser.tokenizeBlock(md)!;

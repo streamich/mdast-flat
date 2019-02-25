@@ -3,7 +3,7 @@ import {IRoot, TAnyToken, TBlockToken} from 'md-mdast/lib/types';
 
 export const flatToMdast: FlatToMdast = (flat: Flat) => {
   const traverse: (index: number) => IRoot | TAnyToken = (index) => {
-    const node: any = {...flat.nodes[index]};
+    const {idx: omit, ...node} = flat.nodes[index] as any;
     if (node.children) node.children = node.children.map(traverse);
     return node;
   };
