@@ -8,7 +8,7 @@
 
 Main difference from MDAST is that `Parent` node `children` property is an
 array of numbers (instead of array of nodes). Numbers are indices into `nodes`
-array, which contain all nodes.
+array, which contains all nodes.
 
 ```idl
 interface FlatParent <: Parent {
@@ -35,9 +35,9 @@ interface MdastFlat {
 ```
 
 - `node` &mdash; a flat array of document nodes.
-- `contents` &mdash; an array of heading indices into `nodes` list.
-- `definitions` &mdash; a map of definition identifiers into `nodes` list index numbers.
-- `footnotes` &mdash; a map of footnote identifiers into `nodes` list index numbers.
+- `contents` &mdash; an array `nodes` indices, which are `heading` nodes.
+- `definitions` &mdash; a map of definition identifiers into `nodes` indices.
+- `footnotes` &mdash; a map of footnote identifiers into `nodes` indices.
 
 
 ## Usage
@@ -64,7 +64,7 @@ Let's say you have the following Markdown.
 
     [click]: https://github.com/
 
-You could convert it to MDAST using [`md-mdast`]()
+You could convert it to MDAST using [`md-mdast`](https://github.com/streamich/md-mdast).
 
 ```yml
 type: root
