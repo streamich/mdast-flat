@@ -18,3 +18,4 @@ export interface Flat {
 }
 
 export type MdastToFlat = (mdast: IRoot | TAnyToken) => Flat;
+export type FlatToMdast = (flat: Flat) => IRoot | TAnyToken;
