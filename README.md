@@ -21,15 +21,20 @@ Full document schema:
 ```idl
 interface MdastFlat {
   nodes: [Root | FlatParent | Literal]
-  contents: [Heading]
+  contents: [number]
   definitions: {
-    [identifier]: Definition
+    [identifier]: number
   }
   footnotes: {
-    [identifier]: FootnoteDefinition
+    [identifier]: number
   }
 }
 ```
+
+- `node` &mdash; a flat array of document nodes.
+- `contents` &mdash; an array of heading indices into `nodes` list.
+- `definitions` &mdash; a map of definition identifiers into `nodes` list index numbers.
+- `footnotes` &mdash; a map of footnote identifiers into `nodes` list index numbers.
 
 ## License
 
