@@ -7,6 +7,7 @@ export const replace = (into: Flat, at: number, what: Flat): Flat => {
     contents: [...into.contents],
     definitions: {...into.definitions},
     footnotes: {...into.footnotes},
+    footnoteOrder: [...into.footnoteOrder],
   };
 
   const replacedNode = merged.nodes[at];

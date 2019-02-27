@@ -221,6 +221,7 @@ describe('structure', () => {
       footnotes: {
         gg: 4,
       },
+      footnoteOrder: [4],
     };
     const mdast = flatToMdast(flat as any);
 

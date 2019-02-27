@@ -6,11 +6,13 @@ export const mdastToFlat: MdastToFlat = (mdast) => {
   const contents: number[] = [];
   const definitions: FlatDefinitions = {};
   const footnotes: FlatFootnotes = {};
+  const footnoteOrder: number[] = [];
   const doc = {
     nodes,
     contents,
     definitions,
     footnotes,
+    footnoteOrder,
   };
 
   const traverse = (token: IRoot | TAnyToken): number => {
@@ -38,6 +40,7 @@ export const mdastToFlat: MdastToFlat = (mdast) => {
         return -1;
       case 'footnoteDefinition':
         footnotes[node.identifier] = idx;
+        footnoteOrder.push(idx);
         return -1;
       default:
         return idx;

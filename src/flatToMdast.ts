@@ -16,10 +16,10 @@ export const flatToMdast: FlatToMdast = (flat: Flat) => {
       mdast.children.push(traverse(index) as TBlockToken);
     });
   }
-  if (flat.footnotes instanceof Object) {
-    Object.values(flat.footnotes).forEach((index) => {
+  if (flat.footnoteOrder instanceof Array) {
+    for (const index of flat.footnoteOrder) {
       mdast.children.push(traverse(index) as TBlockToken);
-    });
+    }
   }
 
   return mdast;

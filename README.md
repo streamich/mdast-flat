@@ -25,12 +25,9 @@ Full document schema:
 interface MdastFlat {
   nodes: [Root | FlatParent | Literal]
   contents: [number]
-  definitions: {
-    [identifier]: number
-  }
-  footnotes: {
-    [identifier]: number
-  }
+  definitions: {[identifier]: number}
+  footnotes: {[identifier]: number}
+  footnoteOrder: [number]
 }
 ```
 
@@ -38,6 +35,7 @@ interface MdastFlat {
 - `contents` &mdash; an array `nodes` indices, which are `heading` nodes.
 - `definitions` &mdash; a map of definition identifiers into `nodes` indices.
 - `footnotes` &mdash; a map of footnote identifiers into `nodes` indices.
+- `footnoteOrder` &mdash; ordered list of footnote node indices.
 
 
 ## Usage
@@ -109,6 +107,7 @@ contents: []
 definitions:
   click: 4
 footnotes: {}
+footnoteOrder: []
 ```
 
 ### Replacing node with document
@@ -177,6 +176,7 @@ nodes:
 contents: []
 definitions: {}
 footnotes: {}
+footnoteOrder: []
 ```
 
 Resulting Markdown equivalent is:
