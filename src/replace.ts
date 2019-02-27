@@ -41,6 +41,9 @@ export const replace = (into: Flat, at: number, what: Flat): Flat => {
   Object.keys(what.footnotes).forEach(
     (identifier) => (merged.footnotes[identifier] = what.footnotes[identifier] + mergeIdx),
   );
+  for (const footnoteIndex of what.footnoteOrder) {
+    merged.footnoteOrder.push(footnoteIndex + mergeIdx);
+  }
 
   return merged;
 };

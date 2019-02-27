@@ -245,6 +245,9 @@ describe('structure', () => {
       footnotes: {
         gg: 4,
       },
+      footnoteOrder: [
+        4,
+      ],
     });
   });
 
