@@ -397,6 +397,7 @@ describe('structure', () => {
         'footnote-1': 10,
         'footnote-2': 19,
       },
+      footnoteOrder: [10, 19],
     });
   });
 });
