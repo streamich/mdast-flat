@@ -245,6 +245,9 @@ describe('structure', () => {
       footnotes: {
         gg: 4,
       },
+      footnoteOrder: [
+        4,
+      ],
     });
   });
 
@@ -394,6 +397,7 @@ describe('structure', () => {
         'footnote-1': 10,
         'footnote-2': 19,
       },
+      footnoteOrder: [10, 19],
     });
   });
 });

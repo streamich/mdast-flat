@@ -29,6 +29,7 @@ describe('structure', () => {
       contents: [],
       definitions: {},
       footnotes: {},
+      footnoteOrder: [],
     });
   });
 
@@ -58,6 +59,7 @@ describe('structure', () => {
       contents: [],
       definitions: {},
       footnotes: {},
+      footnoteOrder: [],
     });
   });
 
@@ -155,6 +157,7 @@ merge here
       contents: [1, 14],
       definitions: {link1: 12, gg: 19},
       footnotes: {foot: 9, note: 20},
+      footnoteOrder: [9, 20],
     });
   });
 });
