@@ -44,6 +44,7 @@ describe('structure', () => {
       contents: [],
       definitions: {},
       footnotes: {},
+      footnoteOrder: [],
     });
   });
 
@@ -103,6 +104,7 @@ describe('structure', () => {
       contents: [1, 3],
       definitions: {},
       footnotes: {},
+      footnoteOrder: [],
     });
   });
 
@@ -170,6 +172,7 @@ describe('structure', () => {
         click: 4,
       },
       footnotes: {},
+      footnoteOrder: [],
     });
   });
 
@@ -229,6 +232,7 @@ describe('structure', () => {
         },
         {
           type: 'footnoteDefinition',
+          cnt: 1,
           children: [5],
         },
         {
@@ -373,7 +377,7 @@ describe('structure', () => {
         {type: 'text'},
         {type: 'footnoteReference'},
         {type: 'text'},
-        {type: 'footnoteDefinition'},
+        {type: 'footnoteDefinition', cnt: 1},
         {type: 'paragraph'},
         {type: 'text'},
         {type: 'heading'},
@@ -382,7 +386,7 @@ describe('structure', () => {
         {type: 'paragraph'},
         {type: 'text'},
         {type: 'footnoteReference'},
-        {type: 'footnoteDefinition'},
+        {type: 'footnoteDefinition', cnt: 2},
         {type: 'paragraph'},
         {type: 'text'},
         {type: 'heading'},

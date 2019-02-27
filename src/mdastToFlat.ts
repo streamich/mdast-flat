@@ -7,6 +7,7 @@ export const mdastToFlat: MdastToFlat = (mdast) => {
   const definitions: FlatDefinitions = {};
   const footnotes: FlatFootnotes = {};
   const footnoteOrder: number[] = [];
+  let footnoteCounter = 0;
   const doc = {
     nodes,
     contents,
@@ -39,6 +40,7 @@ export const mdastToFlat: MdastToFlat = (mdast) => {
         definitions[node.identifier] = idx;
         return -1;
       case 'footnoteDefinition':
+        (node as any).cnt = ++footnoteCounter;
         footnotes[node.identifier] = idx;
         footnoteOrder.push(idx);
         return -1;
