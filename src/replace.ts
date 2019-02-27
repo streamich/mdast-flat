@@ -38,11 +38,17 @@ export const replace = (into: Flat, at: number, what: Flat): Flat => {
   Object.keys(what.definitions).forEach(
     (identifier) => (merged.definitions[identifier] = what.definitions[identifier] + mergeIdx),
   );
+
+  // MERGE FOOTNOTES.
   Object.keys(what.footnotes).forEach(
     (identifier) => (merged.footnotes[identifier] = what.footnotes[identifier] + mergeIdx),
   );
+  let footnoteCount = into.footnoteOrder.length;
   for (const footnoteIndex of what.footnoteOrder) {
-    merged.footnoteOrder.push(footnoteIndex + mergeIdx);
+    const index = footnoteIndex + mergeIdx
+    footnoteCount++;
+    merged.footnoteOrder.push(index);
+    (merged.nodes[index] as any).cnt = footnoteCount;
   }
 
   return merged;
