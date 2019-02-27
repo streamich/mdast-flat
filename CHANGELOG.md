@@ -1,3 +1,11 @@
+# [1.2.0](https://github.com/streamich/mdast-flat/compare/v1.1.0...v1.2.0) (2019-02-27)
+
+
+### Features
+
+* 🎸 add footnoteOrder list ([b743a48](https://github.com/streamich/mdast-flat/commit/b743a48))
+* 🎸 implement footnoteOrder list ([89209c5](https://github.com/streamich/mdast-flat/commit/89209c5))
+
 # [1.1.0](https://github.com/streamich/mdast-flat/compare/v1.0.0...v1.1.0) (2019-02-25)
 
 
