@@ -63,7 +63,7 @@ describe('structure', () => {
     });
   });
 
-  it.only('merges metadata', () => {
+  it('merges metadata', () => {
     const parser = create();
     const mdast1 = parser.tokenizeBlock(`
 # Click [here][link1] world! [^foot]
