@@ -1,3 +1,10 @@
+# [1.4.0](https://github.com/streamich/mdast-flat/compare/v1.3.0...v1.4.0) (2019-03-01)
+
+
+### Features
+
+* 🎸 merge footnote definitions in replace() call ([f552d43](https://github.com/streamich/mdast-flat/commit/f552d43))
+
 # [1.3.0](https://github.com/streamich/mdast-flat/compare/v1.2.0...v1.3.0) (2019-02-27)
 
 
