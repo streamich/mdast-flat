@@ -404,4 +404,15 @@ describe('structure', () => {
       footnoteOrder: [10, 19],
     });
   });
+
+  it('footnotes are ordered', () => {
+    const parser = create();
+    const md = fs.readFileSync(__dirname + '/md/footnote-order.md', 'utf8');
+    const mdast = parser.tokenizeBlock(md)!;
+    const flat = mdastToFlat(mdast);
+
+    expect(flat.footnotes.a).toBe(flat.footnoteOrder[0]);
+    expect(flat.footnotes.b).toBe(flat.footnoteOrder[1]);
+    expect(flat.footnotes.c).toBe(flat.footnoteOrder[2]);
+  });
 });

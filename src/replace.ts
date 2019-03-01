@@ -3,11 +3,11 @@ import {Flat} from './types';
 export const replace = (into: Flat, at: number, what: Flat): Flat => {
   const mergeIdx = into.nodes.length;
   const merged: Flat = {
-    nodes: [...into.nodes],
+    nodes: into.nodes.map(node => ({...node})),
     contents: [...into.contents],
     definitions: {...into.definitions},
     footnotes: {...into.footnotes},
-    footnoteOrder: [...into.footnoteOrder],
+    footnoteOrder: [],
   };
 
   const replacedNode = merged.nodes[at];
@@ -43,12 +43,18 @@ export const replace = (into: Flat, at: number, what: Flat): Flat => {
   Object.keys(what.footnotes).forEach(
     (identifier) => (merged.footnotes[identifier] = what.footnotes[identifier] + mergeIdx),
   );
-  let footnoteCount = into.footnoteOrder.length;
-  for (const footnoteIndex of what.footnoteOrder) {
-    const index = footnoteIndex + mergeIdx
-    footnoteCount++;
-    merged.footnoteOrder.push(index);
-    (merged.nodes[index] as any).cnt = footnoteCount;
+  for (const node of merged.nodes)
+    if (node.type === 'footnoteDefinition')
+      (node as any).cnt = 0;
+  let footnoteCounter = 0;
+  for (const node of merged.nodes) {
+    if ((node.type === 'footnoteReference') || (node.type === 'imageReference')) {
+      const definition = merged.nodes[merged.footnotes[node.value as any]] as any;
+      if (!definition.cnt) {
+        definition.cnt = ++footnoteCounter;
+        merged.footnoteOrder.push(definition.idx);
+      }
+    }
   }
 
   return merged;

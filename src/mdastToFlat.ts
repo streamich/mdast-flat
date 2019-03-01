@@ -1,5 +1,5 @@
 import {MdastToFlat, TNode, FlatDefinitions, FlatFootnotes} from './types';
-import {IRoot, TAnyToken} from 'md-mdast/lib/types';
+import {IRoot, TAnyToken, IImageReference, IFootnoteReference} from 'md-mdast/lib/types';
 
 export const mdastToFlat: MdastToFlat = (mdast) => {
   const nodes: TNode[] = [];
@@ -7,7 +7,6 @@ export const mdastToFlat: MdastToFlat = (mdast) => {
   const definitions: FlatDefinitions = {};
   const footnotes: FlatFootnotes = {};
   const footnoteOrder: number[] = [];
-  let footnoteCounter = 0;
   const doc = {
     nodes,
     contents,
@@ -40,9 +39,7 @@ export const mdastToFlat: MdastToFlat = (mdast) => {
         definitions[node.identifier] = idx;
         return -1;
       case 'footnoteDefinition':
-        (node as any).cnt = ++footnoteCounter;
         footnotes[node.identifier] = idx;
-        footnoteOrder.push(idx);
         return -1;
       default:
         return idx;
@@ -51,6 +48,23 @@ export const mdastToFlat: MdastToFlat = (mdast) => {
 
   if (mdast) {
     traverse(mdast);
+
+    let footnoteCounter = 0;
+    for (const node of nodes) {
+      if ((node.type === 'footnoteReference') || (node.type === 'imageReference')) {
+        const identifier = ((node as IImageReference).identifier || (node as IFootnoteReference).value);
+        if (identifier) {
+          const footnoteIndex = footnotes[identifier];
+          if (footnoteIndex !== undefined) {
+            const definition = nodes[footnoteIndex] as any;
+            if (!definition.cnt) {
+              definition.cnt = ++footnoteCounter;
+              footnoteOrder.push(definition.idx);
+            }
+          }
+        }
+      }
+    }
   }
 
   return doc;
