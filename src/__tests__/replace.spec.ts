@@ -63,10 +63,10 @@ describe('structure', () => {
     });
   });
 
-  it('merges metadata', () => {
+  it.only('merges metadata', () => {
     const parser = create();
     const mdast1 = parser.tokenizeBlock(`
-# Click [here][link1] world![^foot]
+# Click [here][link1] world! [^foot]
 
 merge here
 
@@ -101,13 +101,11 @@ merge here
           idx: 3,
         },
         {type: 'text', value: 'here', idx: 4},
-        {type: 'text', value: ' world', idx: 5},
+        {type: 'text', value: ' world! ', idx: 5},
         {
-          type: 'imageReference',
-          identifier: '^foot',
-          referenceType: 'shortcut',
-          alt: '^foot',
+          type: "footnoteReference",
           idx: 6,
+          value: 'foot',
         },
         {
           type: 'portal',
