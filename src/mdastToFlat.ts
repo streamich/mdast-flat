@@ -15,16 +15,16 @@ export const mdastToFlat: MdastToFlat = (mdast) => {
     footnoteOrder,
   };
 
-  const traverse = (token: IRoot | TAnyToken): number => {
+  const traverse = (token: IRoot | TAnyToken, parent: number): number => {
     const idx = nodes.length;
-    const node = {...token, idx} as TNode;
+    const node = {...token, idx, parent} as TNode;
     nodes.push(node);
 
     if (token.children) {
       if (token.children instanceof Array) {
-        node.children = (token.children as any).map(traverse).filter((i: number) => i > -1);
+        node.children = (token.children as any).map(token => traverse(token, idx)).filter((i: number) => i > -1);
       } else {
-        const childIndex = traverse(token.children);
+        const childIndex = traverse(token.children, idx);
         if (childIndex > -1) {
           node.children = [childIndex] as any;
         }
@@ -47,7 +47,7 @@ export const mdastToFlat: MdastToFlat = (mdast) => {
   };
 
   if (mdast) {
-    traverse(mdast);
+    traverse(mdast, 0);
 
     let footnoteCounter = 0;
     for (const node of nodes) {

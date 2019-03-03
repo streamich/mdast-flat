@@ -27,7 +27,7 @@
   },
   "keywords": [],
   "dependencies": {
-    "md-mdast": "^3.0.0"
+    "md-mdast": "^3.1.0"
   },
   "devDependencies": {
     "@semantic-release/changelog": "3.0.2",

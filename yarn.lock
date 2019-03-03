@@ -3861,10 +3861,10 @@ matcher@^1.0.0:
   dependencies:
     escape-string-regexp "^1.0.4"
 
-md-mdast@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/md-mdast/-/md-mdast-3.0.0.tgz#6be00546a1fb68fea609ec8b32c117f64e3d7075"
-  integrity sha512-gbHq595JuwRKNhifFly1uqsFIr7lyxPiGg2o8+rD2LKYX4rF4u1tcZgNyZygwijGZgtnBSXGjxhl6IjxM+Rn9A==
+md-mdast@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/md-mdast/-/md-mdast-3.1.0.tgz#809e304f396bdd56a01ba4c3cee84b912e74c2c1"
+  integrity sha512-IoVQtTfS7zFzZH7CdggpkvjjE1oPzm4RD/u3lXXSSNsC8rxGPdicuj/Q0JIu1RpUgu5XLgGlTaBUccQmyeVEaA==
 
 meant@~1.0.1:
   version "1.0.1"
