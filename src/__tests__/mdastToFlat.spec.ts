@@ -415,4 +415,23 @@ describe('structure', () => {
     expect(flat.footnotes.b).toBe(flat.footnoteOrder[1]);
     expect(flat.footnotes.c).toBe(flat.footnoteOrder[2]);
   });
+
+  it('all nodes should have a parent key', () => {
+    const parser = create();
+    const md = fs.readFileSync(__dirname + '/md/parent-key.md', 'utf8');
+    const mdast = parser.tokenizeBlock(md)!;
+    const flat = mdastToFlat(mdast);
+
+    // console.log(flat);
+    expect(flat.nodes[0].parent).toBe(0);
+    expect(flat.nodes[1].parent).toBe(0);
+    expect(flat.nodes[2].parent).toBe(1);
+    expect(flat.nodes[3].parent).toBe(0);
+    expect(flat.nodes[4].parent).toBe(3);
+    expect(flat.nodes[5].parent).toBe(3);
+    expect(flat.nodes[6].parent).toBe(5);
+    expect(flat.nodes[7].parent).toBe(3);
+    expect(flat.nodes[8].parent).toBe(3);
+    expect(flat.nodes[9].parent).toBe(8);
+  });
 });
