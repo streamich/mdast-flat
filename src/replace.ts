@@ -1,4 +1,5 @@
 import {Flat} from './types';
+import {findRoot} from './findRoot';
 
 export const replace = (into: Flat, at: number, what: Flat): Flat => {
   const mergeIdx = into.nodes.length;
@@ -33,6 +34,7 @@ export const replace = (into: Flat, at: number, what: Flat): Flat => {
     merged.nodes.push(newNode);
   }
   merged.nodes[mergeIdx].parent = at;
+  merged.nodes[mergeIdx].depth = (into.nodes[findRoot(into, at)].depth || 0) + 1;
 
   // MERGE METADATA.
   for (const idx of what.contents) {

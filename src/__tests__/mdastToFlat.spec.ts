@@ -48,6 +48,14 @@ describe('structure', () => {
     });
   });
 
+  it('root node should have a depth attribute', () => {
+    const parser = create();
+    const mdast = parser.tokenizeBlock('foo');
+    const flat = mdastToFlat(mdast!);
+
+    expect(flat.nodes[0].depth).toBe(0);
+  });
+
   it('adds titles to contents list', () => {
     const parser = create();
     const mdast = parser.tokenizeBlock('# Title\n' + '\n' + '## Subtitle\n');
