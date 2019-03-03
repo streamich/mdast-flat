@@ -14,6 +14,7 @@ export const replace = (into: Flat, at: number, what: Flat): Flat => {
   merged.nodes[at] = {
     type: 'portal',
     idx: at,
+    parent: replacedNode.parent,
     original: replacedNode,
     children: [mergeIdx],
   } as any;
@@ -23,6 +24,7 @@ export const replace = (into: Flat, at: number, what: Flat): Flat => {
     const newNode: any = {
       ...node,
       idx: node.idx + mergeIdx,
+      parent: node.parent + mergeIdx,
     };
 
     if (newNode.children) {
@@ -30,6 +32,7 @@ export const replace = (into: Flat, at: number, what: Flat): Flat => {
     }
     merged.nodes.push(newNode);
   }
+  merged.nodes[mergeIdx].parent = at;
 
   // MERGE METADATA.
   for (const idx of what.contents) {
