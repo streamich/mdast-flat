@@ -49,6 +49,7 @@ export const mdastToFlat: MdastToFlat = (mdast) => {
   if (mdast) {
     traverse(mdast, 0);
 
+    // Process references.
     let footnoteCounter = 0;
     for (const node of nodes) {
       if ((node.type === 'footnoteReference') || (node.type === 'imageReference')) {
@@ -65,6 +66,10 @@ export const mdastToFlat: MdastToFlat = (mdast) => {
         }
       }
     }
+
+    // Process root node.
+    const root = doc.nodes[0];
+    root.depth = 0;
   }
 
   return doc;

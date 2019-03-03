@@ -7,6 +7,18 @@ describe('structure', () => {
     expect(typeof replace).toBe('function');
   });
 
+  it('should set `depth` attribute on merged in root', () => {
+    const parser = create();
+    const mdast1 = parser.tokenizeBlock('1\n' + '\n' + 'replace me\n');
+    const mdast2 = parser.tokenizeBlock('2\n');
+    const flat1 = mdastToFlat(mdast1!);
+    const flat2 = mdastToFlat(mdast2!);
+    const merged = replace(flat1, 3, flat2);
+    const mergedRoot = merged.nodes[flat1.nodes.length];
+
+    expect(mergedRoot.depth).toBe(1);
+  });
+
   it('simple example', () => {
     const parser = create();
     const mdast1 = parser.tokenizeBlock('1\n' + '\n' + 'replace me\n');

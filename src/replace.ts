@@ -1,4 +1,5 @@
 import {Flat} from './types';
+import {findRoot} from './findRoot';
 
 export const replace = (into: Flat, at: number, what: Flat): Flat => {
   const mergeIdx = into.nodes.length;
@@ -14,6 +15,7 @@ export const replace = (into: Flat, at: number, what: Flat): Flat => {
   merged.nodes[at] = {
     type: 'portal',
     idx: at,
+    parent: replacedNode.parent,
     original: replacedNode,
     children: [mergeIdx],
   } as any;
@@ -23,6 +25,7 @@ export const replace = (into: Flat, at: number, what: Flat): Flat => {
     const newNode: any = {
       ...node,
       idx: node.idx + mergeIdx,
+      parent: node.parent + mergeIdx,
     };
 
     if (newNode.children) {
@@ -30,6 +33,11 @@ export const replace = (into: Flat, at: number, what: Flat): Flat => {
     }
     merged.nodes.push(newNode);
   }
+
+  // PROCESS MERGED IN ROOT
+  const mergedRoot = merged.nodes[mergeIdx];
+  mergedRoot.parent = at;
+  mergedRoot.depth = (into.nodes[findRoot(into, at)].depth || 0) + 1;
 
   // MERGE METADATA.
   for (const idx of what.contents) {

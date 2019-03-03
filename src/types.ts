@@ -11,6 +11,10 @@ export interface FlatFootnotes {
 export type TNode = (IRoot | TAnyToken) & {
   idx: number;
   parent: number;
+  /**
+   * Root nodes have `depth` key, which tracks how deeply they have been merged.
+   */
+  depth?: number;
   children?: number[];
 };
 
