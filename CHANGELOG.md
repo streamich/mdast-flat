@@ -1,3 +1,10 @@
+# [1.5.0](https://github.com/streamich/mdast-flat/compare/v1.4.0...v1.5.0) (2019-03-03)
+
+
+### Features
+
+* 🎸 add `parent` key to all nodes ([c4d611f](https://github.com/streamich/mdast-flat/commit/c4d611f))
+
 # [1.4.0](https://github.com/streamich/mdast-flat/compare/v1.3.0...v1.4.0) (2019-03-01)
 
 
