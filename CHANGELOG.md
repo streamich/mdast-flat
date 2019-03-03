@@ -1,3 +1,11 @@
+# [1.6.0](https://github.com/streamich/mdast-flat/compare/v1.5.0...v1.6.0) (2019-03-03)
+
+
+### Features
+
+* 🎸 add findRoot() function ([d75bc86](https://github.com/streamich/mdast-flat/commit/d75bc86))
+* 🎸 set `depth` attribute in mdastToFlat() ([0f5eca7](https://github.com/streamich/mdast-flat/commit/0f5eca7))
+
 # [1.5.0](https://github.com/streamich/mdast-flat/compare/v1.4.0...v1.5.0) (2019-03-03)
 
 
