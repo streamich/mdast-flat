@@ -48,7 +48,7 @@ describe('structure', () => {
     });
   });
 
-  it('root node should have a depth attribute', () => {
+  it('root node should have a `depth` attribute', () => {
     const parser = create();
     const mdast = parser.tokenizeBlock('foo');
     const flat = mdastToFlat(mdast!);

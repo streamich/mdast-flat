@@ -46,6 +46,8 @@ MDAST-Flat nodes have the following attributes.
 - `children` attribute is an array of numbers that index into `nodes` list.
 - `idx` a number, which is the index of current node in `nodes` list.
 - `parent` a number, which is the index of parent node in the `nodes` list.
+- Root nodes also have `depth` attribute which tracks
+  its depth if another document was merged in using `replace` function.
 
 ## Usage
 
