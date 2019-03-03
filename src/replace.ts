@@ -33,8 +33,11 @@ export const replace = (into: Flat, at: number, what: Flat): Flat => {
     }
     merged.nodes.push(newNode);
   }
-  merged.nodes[mergeIdx].parent = at;
-  merged.nodes[mergeIdx].depth = (into.nodes[findRoot(into, at)].depth || 0) + 1;
+
+  // PROCESS MERGED IN ROOT
+  const mergedRoot = merged.nodes[mergeIdx];
+  mergedRoot.parent = at;
+  mergedRoot.depth = (into.nodes[findRoot(into, at)].depth || 0) + 1;
 
   // MERGE METADATA.
   for (const idx of what.contents) {
