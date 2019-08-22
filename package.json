@@ -32,7 +32,7 @@
   "devDependencies": {
     "@semantic-release/changelog": "3.0.4",
     "@semantic-release/git": "7.0.16",
-    "@semantic-release/npm": "5.1.13",
+    "@semantic-release/npm": "5.1.15",
     "@types/jest": "24.0.18",
     "@types/node": "11.13.19",
     "husky": "3.0.4",
@@ -41,7 +41,7 @@
     "prettier": "1.18.2",
     "pretty-quick": "1.11.1",
     "rimraf": "3.0.0",
-    "semantic-release": "15.13.21",
+    "semantic-release": "15.13.24",
     "ts-jest": "24.0.2",
     "ts-node": "8.3.0",
     "tslint": "5.19.0",
