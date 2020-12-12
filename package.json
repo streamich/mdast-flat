@@ -35,7 +35,7 @@
     "@semantic-release/npm": "5.3.5",
     "@types/jest": "24.9.1",
     "@types/node": "11.15.40",
-    "husky": "3.1.0",
+    "husky": "4.3.5",
     "jest": "24.9.0",
     "lint-staged": "8.2.1",
     "prettier": "1.19.1",
