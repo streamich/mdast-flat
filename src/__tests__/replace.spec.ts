@@ -111,7 +111,7 @@ merge here
         {type: 'text', value: 'here', idx: 4},
         {type: 'text', value: ' world! ', idx: 5},
         {
-          type: "footnoteReference",
+          type: 'footnoteReference',
           idx: 6,
           identifier: 'foot',
         },

@@ -4,7 +4,7 @@ import {findRoot} from './findRoot';
 export const replace = (into: Flat, at: number, what: Flat): Flat => {
   const mergeIdx = into.nodes.length;
   const merged: Flat = {
-    nodes: into.nodes.map(node => ({...node})),
+    nodes: into.nodes.map((node) => ({...node})),
     contents: [...into.contents],
     definitions: {...into.definitions},
     footnotes: {...into.footnotes},
@@ -51,12 +51,10 @@ export const replace = (into: Flat, at: number, what: Flat): Flat => {
   Object.keys(what.footnotes).forEach(
     (identifier) => (merged.footnotes[identifier] = what.footnotes[identifier] + mergeIdx),
   );
-  for (const node of merged.nodes)
-    if (node.type === 'footnoteDefinition')
-      (node as any).cnt = 0;
+  for (const node of merged.nodes) if (node.type === 'footnoteDefinition') (node as any).cnt = 0;
   let footnoteCounter = 0;
   for (const node of merged.nodes) {
-    if ((node.type === 'footnoteReference') || (node.type === 'imageReference')) {
+    if (node.type === 'footnoteReference' || node.type === 'imageReference') {
       const definition = merged.nodes[merged.footnotes[node.identifier]] as any;
       if (!definition.cnt) {
         definition.cnt = ++footnoteCounter;

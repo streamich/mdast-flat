@@ -15,7 +15,7 @@ export const mdastToFlat: MdastToFlat = (mdast) => {
     footnotes,
     footnoteOrder,
   };
-  
+
   type MdastNode = IRoot | TBlockToken | TInlineToken;
 
   const traverse = (token: MdastNode, parent: number): number => {
@@ -25,7 +25,9 @@ export const mdastToFlat: MdastToFlat = (mdast) => {
 
     if (token.children) {
       if (token.children instanceof Array) {
-        node.children = (token.children as MdastNode[]).map(token => traverse(token, idx)).filter((i: number) => i > -1) as any;
+        node.children = (token.children as MdastNode[])
+          .map((token) => traverse(token, idx))
+          .filter((i: number) => i > -1) as any;
       } else {
         const childIndex = traverse(token.children, idx);
         if (childIndex > -1) {
@@ -55,8 +57,8 @@ export const mdastToFlat: MdastToFlat = (mdast) => {
     // Process references.
     let footnoteCounter = 0;
     for (const node of nodes) {
-      if ((node.type === 'footnoteReference') || (node.type === 'imageReference')) {
-        const identifier = ((node as IImageReference).identifier || (node as IFootnoteReference).value);
+      if (node.type === 'footnoteReference' || node.type === 'imageReference') {
+        const identifier = (node as IImageReference).identifier || (node as IFootnoteReference).value;
         if (identifier) {
           const footnoteIndex = footnotes[identifier];
           if (footnoteIndex !== undefined) {
