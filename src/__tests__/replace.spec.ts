@@ -1,4 +1,4 @@
-import {create} from 'md-mdast';
+import {block} from 'very-small-parser/lib/markdown';
 import {mdastToFlat} from '../mdastToFlat';
 import {replace} from '../replace';
 
@@ -8,9 +8,8 @@ describe('structure', () => {
   });
 
   it('should set `depth` attribute on merged in root', () => {
-    const parser = create();
-    const mdast1 = parser.tokenizeBlock('1\n' + '\n' + 'replace me\n');
-    const mdast2 = parser.tokenizeBlock('2\n');
+    const mdast1 = block.parsef('1\n' + '\n' + 'replace me\n');
+    const mdast2 = block.parsef('2\n');
     const flat1 = mdastToFlat(mdast1!);
     const flat2 = mdastToFlat(mdast2!);
     const merged = replace(flat1, 3, flat2);
@@ -20,9 +19,8 @@ describe('structure', () => {
   });
 
   it('simple example', () => {
-    const parser = create();
-    const mdast1 = parser.tokenizeBlock('1\n' + '\n' + 'replace me\n');
-    const mdast2 = parser.tokenizeBlock('2\n');
+    const mdast1 = block.parsef('1\n' + '\n' + 'replace me\n');
+    const mdast2 = block.parsef('2\n');
     const flat1 = mdastToFlat(mdast1!);
     const flat2 = mdastToFlat(mdast2!);
     const merged = replace(flat1, 3, flat2);
@@ -46,9 +44,8 @@ describe('structure', () => {
   });
 
   it('merges nodes', () => {
-    const parser = create();
-    const mdast1 = parser.tokenizeBlock('1\n' + '\n' + 'here\n' + '\n' + '4\n');
-    const mdast2 = parser.tokenizeBlock('3\n' + '\n' + '4\n');
+    const mdast1 = block.parsef('1\n' + '\n' + 'here\n' + '\n' + '4\n');
+    const mdast2 = block.parsef('3\n' + '\n' + '4\n');
     const flat1 = mdastToFlat(mdast1!);
     const flat2 = mdastToFlat(mdast2!);
     const merged = replace(flat1, 3, flat2);
@@ -76,8 +73,7 @@ describe('structure', () => {
   });
 
   it('merges metadata', () => {
-    const parser = create();
-    const mdast1 = parser.tokenizeBlock(`
+    const mdast1 = block.parsef(`
 # Click [here][link1] world! [^foot]
 
 merge here
@@ -85,7 +81,7 @@ merge here
 [^foot]: This is footnote 1
 [link1]: http://google.com
 `);
-    const mdast2 = parser.tokenizeBlock(`
+    const mdast2 = block.parsef(`
 ## [what][gg]?[^note]
 
 [gg]: mailto:gg@bets.com
@@ -117,7 +113,7 @@ merge here
         {
           type: "footnoteReference",
           idx: 6,
-          value: 'foot',
+          identifier: 'foot',
         },
         {
           type: 'portal',
@@ -153,7 +149,7 @@ merge here
         },
         {type: 'text', value: 'what', idx: 16},
         {type: 'text', value: '?', idx: 17},
-        {type: 'footnoteReference', value: 'note', idx: 18},
+        {type: 'footnoteReference', identifier: 'note', idx: 18},
         {
           type: 'definition',
           identifier: 'gg',

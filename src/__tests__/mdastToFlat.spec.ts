@@ -1,4 +1,4 @@
-import {create} from 'md-mdast';
+import {block} from 'very-small-parser/lib/markdown';
 import {mdastToFlat} from '../mdastToFlat';
 import * as fs from 'fs';
 
@@ -8,8 +8,7 @@ describe('structure', () => {
   });
 
   it('returns correct document shape', () => {
-    const parser = create();
-    const mdast = parser.tokenizeBlock('foo');
+    const mdast = block.parsef('foo');
     const doc = mdastToFlat(mdast!);
 
     expect(mdast).toMatchObject({
@@ -49,16 +48,14 @@ describe('structure', () => {
   });
 
   it('root node should have a `depth` attribute', () => {
-    const parser = create();
-    const mdast = parser.tokenizeBlock('foo');
+    const mdast = block.parsef('foo');
     const flat = mdastToFlat(mdast!);
 
     expect(flat.nodes[0].depth).toBe(0);
   });
 
   it('adds titles to contents list', () => {
-    const parser = create();
-    const mdast = parser.tokenizeBlock('# Title\n' + '\n' + '## Subtitle\n');
+    const mdast = block.parsef('# Title\n' + '\n' + '## Subtitle\n');
     const doc = mdastToFlat(mdast!);
 
     expect(mdast).toMatchObject({
@@ -117,8 +114,7 @@ describe('structure', () => {
   });
 
   it('structure link definitions', () => {
-    const parser = create();
-    const mdast = parser.tokenizeBlock('[Click me][click]\n' + '\n' + '[click]: https://github.com/');
+    const mdast = block.parsef('[Click me][click]\n' + '\n' + '[click]: https://github.com/');
     const doc = mdastToFlat(mdast!);
 
     expect(mdast).toMatchObject({
@@ -185,8 +181,7 @@ describe('structure', () => {
   });
 
   it('a footnote', () => {
-    const parser = create();
-    const mdast = parser.tokenizeBlock('Hello[^gg]\n' + '\n' + '[^gg]: world!');
+    const mdast = block.parsef('Hello[^gg]\n' + '\n' + '[^gg]: world!');
     const doc = mdastToFlat(mdast!);
 
     expect(mdast).toMatchObject({
@@ -201,7 +196,7 @@ describe('structure', () => {
             },
             {
               type: 'footnoteReference',
-              value: 'gg',
+              identifier: 'gg',
             },
           ],
         },
@@ -237,6 +232,7 @@ describe('structure', () => {
         },
         {
           type: 'footnoteReference',
+          identifier: 'gg',
         },
         {
           type: 'footnoteDefinition',
@@ -264,9 +260,8 @@ describe('structure', () => {
   });
 
   it('all elements twice or more', () => {
-    const parser = create();
     const md = fs.readFileSync(__dirname + '/md/all-elements-twice.md', 'utf8');
-    const mdast = parser.tokenizeBlock(md)!;
+    const mdast = block.parsef(md)!;
     const flat = mdastToFlat(mdast);
 
     expect(mdast).toMatchObject({
@@ -298,7 +293,7 @@ describe('structure', () => {
               referenceType: 'full',
             },
             {type: 'text', value: ' foo'},
-            {type: 'footnoteReference', value: 'footnote-1'},
+            {type: 'footnoteReference', identifier: 'footnote-1'},
             {type: 'text', value: ' bar.'},
           ],
         },
@@ -342,7 +337,7 @@ describe('structure', () => {
             },
             {
               type: 'footnoteReference',
-              value: 'footnote-2',
+              identifier: 'footnote-2',
             },
           ],
         },
@@ -414,9 +409,8 @@ describe('structure', () => {
   });
 
   it('footnotes are ordered', () => {
-    const parser = create();
     const md = fs.readFileSync(__dirname + '/md/footnote-order.md', 'utf8');
-    const mdast = parser.tokenizeBlock(md)!;
+    const mdast = block.parsef(md)!;
     const flat = mdastToFlat(mdast);
 
     expect(flat.footnotes.a).toBe(flat.footnoteOrder[0]);
@@ -425,9 +419,8 @@ describe('structure', () => {
   });
 
   it('all nodes should have a parent key', () => {
-    const parser = create();
     const md = fs.readFileSync(__dirname + '/md/parent-key.md', 'utf8');
-    const mdast = parser.tokenizeBlock(md)!;
+    const mdast = block.parsef(md)!;
     const flat = mdastToFlat(mdast);
 
     // console.log(flat);

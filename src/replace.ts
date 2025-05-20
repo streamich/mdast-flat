@@ -29,7 +29,7 @@ export const replace = (into: Flat, at: number, what: Flat): Flat => {
     };
 
     if (newNode.children) {
-      newNode.children = newNode.children.map((idx) => idx + mergeIdx);
+      newNode.children = newNode.children.map((idx: any) => idx + mergeIdx);
     }
     merged.nodes.push(newNode);
   }
@@ -57,7 +57,7 @@ export const replace = (into: Flat, at: number, what: Flat): Flat => {
   let footnoteCounter = 0;
   for (const node of merged.nodes) {
     if ((node.type === 'footnoteReference') || (node.type === 'imageReference')) {
-      const definition = merged.nodes[merged.footnotes[node.value as any]] as any;
+      const definition = merged.nodes[merged.footnotes[node.identifier]] as any;
       if (!definition.cnt) {
         definition.cnt = ++footnoteCounter;
         merged.footnoteOrder.push(definition.idx);

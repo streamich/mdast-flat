@@ -1,4 +1,4 @@
-import {create} from 'md-mdast';
+import {block} from 'very-small-parser/lib/markdown';
 import {mdastToFlat} from '../mdastToFlat';
 import {replace} from '../replace';
 import {findRoot} from '../findRoot';
@@ -6,9 +6,8 @@ import * as fs from 'fs';
 
 describe('findRoot', () => {
   it('find document root', () => {
-    const parser = create();
     const md = fs.readFileSync(__dirname + '/md/all-elements-twice.md', 'utf8');
-    const mdast = parser.tokenizeBlock(md)!;
+    const mdast = block.parsef(md)!;
     const flat = mdastToFlat(mdast);
 
     for (let idx = 0; idx < flat.nodes.length; idx++) {
@@ -18,13 +17,12 @@ describe('findRoot', () => {
   });
 
   it('finds first root in the merged document', () => {
-    const parser = create();
-    const mdast1 = parser.tokenizeBlock(`
+    const mdast1 = block.parsef(`
 1
 
 merge
     `)!;
-    const mdast2 = parser.tokenizeBlock(`
+    const mdast2 = block.parsef(`
 2
     `)!;
     const flat1 = mdastToFlat(mdast1);
@@ -42,18 +40,17 @@ merge
   });
 
   it('finds first root in the doubly nested document', () => {
-    const parser = create();
-    const mdast1 = parser.tokenizeBlock(`
+    const mdast1 = block.parsef(`
 1
 
 merge
     `)!;
-    const mdast2 = parser.tokenizeBlock(`
+    const mdast2 = block.parsef(`
 2
 
 merge
     `)!;
-    const mdast3 = parser.tokenizeBlock(`
+    const mdast3 = block.parsef(`
 3
     `)!;
     const flat1 = mdastToFlat(mdast1);
