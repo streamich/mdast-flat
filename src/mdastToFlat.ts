@@ -1,5 +1,6 @@
-import {MdastToFlat, TNode, FlatDefinitions, FlatFootnotes} from './types';
-import {IRoot, TAnyToken, IImageReference, IFootnoteReference} from 'md-mdast/lib/types';
+import type {MdastToFlat, TNode, FlatDefinitions, FlatFootnotes} from './types';
+import type {TInlineToken} from 'very-small-parser/lib/markdown/inline/types';
+import type {IRoot, TBlockToken, IImageReference, IFootnoteReference} from 'very-small-parser/lib/markdown';
 
 export const mdastToFlat: MdastToFlat = (mdast) => {
   const nodes: TNode[] = [];
@@ -15,14 +16,18 @@ export const mdastToFlat: MdastToFlat = (mdast) => {
     footnoteOrder,
   };
 
-  const traverse = (token: IRoot | TAnyToken, parent: number): number => {
+  type MdastNode = IRoot | TBlockToken | TInlineToken;
+
+  const traverse = (token: MdastNode, parent: number): number => {
     const idx = nodes.length;
     const node = {...token, idx, parent} as TNode;
     nodes.push(node);
 
     if (token.children) {
       if (token.children instanceof Array) {
-        node.children = (token.children as any).map(token => traverse(token, idx)).filter((i: number) => i > -1);
+        node.children = (token.children as MdastNode[])
+          .map((token) => traverse(token, idx))
+          .filter((i: number) => i > -1) as any;
       } else {
         const childIndex = traverse(token.children, idx);
         if (childIndex > -1) {
@@ -52,8 +57,8 @@ export const mdastToFlat: MdastToFlat = (mdast) => {
     // Process references.
     let footnoteCounter = 0;
     for (const node of nodes) {
-      if ((node.type === 'footnoteReference') || (node.type === 'imageReference')) {
-        const identifier = ((node as IImageReference).identifier || (node as IFootnoteReference).value);
+      if (node.type === 'footnoteReference' || node.type === 'imageReference') {
+        const identifier = (node as IImageReference).identifier || (node as IFootnoteReference).value;
         if (identifier) {
           const footnoteIndex = footnotes[identifier];
           if (footnoteIndex !== undefined) {

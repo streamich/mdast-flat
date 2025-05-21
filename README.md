@@ -74,7 +74,7 @@ Let's say you have the following Markdown.
 
     [click]: https://github.com/
 
-You could convert it to MDAST using [`md-mdast`](https://github.com/streamich/md-mdast).
+You could convert it to MDAST using [`very-small-parser`](https://github.com/streamich/very-small-parser).
 
 ```yml
 type: root

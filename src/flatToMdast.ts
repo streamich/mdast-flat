@@ -1,8 +1,9 @@
-import {FlatToMdast, Flat} from './types';
-import {IRoot, TAnyToken, TBlockToken} from 'md-mdast/lib/types';
+import type {FlatToMdast, Flat} from './types';
+import type {TInlineToken} from 'very-small-parser/lib/markdown/inline/types';
+import type {IRoot, TBlockToken} from 'very-small-parser/lib/markdown';
 
 export const flatToMdast: FlatToMdast = (flat: Flat) => {
-  const traverse: (index: number) => IRoot | TAnyToken = (index) => {
+  const traverse: (index: number) => IRoot | TBlockToken | TInlineToken = (index) => {
     const {idx: omit, ...node} = flat.nodes[index] as any;
     if (node.children) node.children = node.children.map(traverse);
     return node;
@@ -12,9 +13,9 @@ export const flatToMdast: FlatToMdast = (flat: Flat) => {
   if (!mdast.children) mdast.children = [];
 
   if (flat.definitions instanceof Object) {
-    Object.values(flat.definitions).forEach((index) => {
+    for (const index of Object.values(flat.definitions)) {
       mdast.children.push(traverse(index) as TBlockToken);
-    });
+    }
   }
   if (flat.footnoteOrder instanceof Array) {
     for (const index of flat.footnoteOrder) {

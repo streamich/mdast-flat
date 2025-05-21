@@ -1,4 +1,5 @@
-import {IRoot, TAnyToken} from 'md-mdast/lib/types';
+import type {TInlineToken} from 'very-small-parser/lib/markdown/inline/types';
+import type {IRoot, TBlockToken} from 'very-small-parser/lib/markdown';
 
 export interface FlatDefinitions {
   [id: string]: number;
@@ -8,7 +9,7 @@ export interface FlatFootnotes {
   [id: string]: number;
 }
 
-export type TNode = (IRoot | TAnyToken) & {
+export type TNode = (IRoot | TBlockToken | TInlineToken) & {
   idx: number;
   parent: number;
   /**
@@ -41,5 +42,5 @@ export interface Flat {
   footnoteOrder: number[];
 }
 
-export type MdastToFlat = (mdast: IRoot | TAnyToken) => Flat;
-export type FlatToMdast = (flat: Flat) => IRoot | TAnyToken;
+export type MdastToFlat = (mdast: IRoot | TBlockToken | TInlineToken) => Flat;
+export type FlatToMdast = (flat: Flat) => IRoot | TBlockToken | TInlineToken;
