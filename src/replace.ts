@@ -1,5 +1,5 @@
-import {Flat} from './types';
 import {findRoot} from './findRoot';
+import type {Flat} from './types';
 
 export const replace = (into: Flat, at: number, what: Flat): Flat => {
   const mergeIdx = into.nodes.length;
@@ -43,14 +43,14 @@ export const replace = (into: Flat, at: number, what: Flat): Flat => {
   for (const idx of what.contents) {
     merged.contents.push(idx + mergeIdx);
   }
-  Object.keys(what.definitions).forEach(
-    (identifier) => (merged.definitions[identifier] = what.definitions[identifier] + mergeIdx),
-  );
+  for (const identifier of Object.keys(what.definitions)) {
+    merged.definitions[identifier] = what.definitions[identifier] + mergeIdx;
+  }
 
   // MERGE FOOTNOTES.
-  Object.keys(what.footnotes).forEach(
-    (identifier) => (merged.footnotes[identifier] = what.footnotes[identifier] + mergeIdx),
-  );
+  for (const identifier of Object.keys(what.footnotes)) {
+    merged.footnotes[identifier] = what.footnotes[identifier] + mergeIdx;
+  }
   for (const node of merged.nodes) if (node.type === 'footnoteDefinition') (node as any).cnt = 0;
   let footnoteCounter = 0;
   for (const node of merged.nodes) {

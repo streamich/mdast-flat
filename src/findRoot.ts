@@ -1,4 +1,4 @@
-import {Flat} from './types';
+import type {Flat} from './types';
 
 export const findRoot = (flat: Flat, idx: number): number => {
   const nodes = flat.nodes;

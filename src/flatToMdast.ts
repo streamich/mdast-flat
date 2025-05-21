@@ -13,9 +13,9 @@ export const flatToMdast: FlatToMdast = (flat: Flat) => {
   if (!mdast.children) mdast.children = [];
 
   if (flat.definitions instanceof Object) {
-    Object.values(flat.definitions).forEach((index) => {
+    for (const index of Object.values(flat.definitions)) {
       mdast.children.push(traverse(index) as TBlockToken);
-    });
+    }
   }
   if (flat.footnoteOrder instanceof Array) {
     for (const index of flat.footnoteOrder) {
