@@ -37,7 +37,7 @@
     "@types/jest": "30.0.0",
     "@types/node": "22.15.32",
     "config-galore": "1.0.0",
-    "jest": "30.0.0",
+    "jest": "30.0.2",
     "ts-jest": "29.4.0",
     "ts-node": "10.9.2",
     "tslib": "2.8.1",
