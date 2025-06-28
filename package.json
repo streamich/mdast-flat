@@ -35,7 +35,7 @@
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
     "@types/jest": "30.0.0",
-    "@types/node": "22.15.33",
+    "@types/node": "22.15.34",
     "config-galore": "1.0.0",
     "jest": "30.0.3",
     "ts-jest": "29.4.0",
