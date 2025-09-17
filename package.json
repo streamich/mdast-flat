@@ -33,7 +33,7 @@
     "tslib": "*"
   },
   "devDependencies": {
-    "@biomejs/biome": "1.9.4",
+    "@biomejs/biome": "2.2.4",
     "@types/jest": "30.0.0",
     "@types/node": "22.18.5",
     "config-galore": "1.0.0",
